@@ -1,22 +1,38 @@
 /// <reference types="cypress"/>
 
 describe ('Funcionalidade: login', () =>{
+   beforeEach(() => {
+    cy.visit ('http://lojaebac.ebaconline.art.br/minha-conta/')
+   });
+
+   afterEach(() => {
+    cy.screenshot()
+   });
     it('Deve fazer login com sucesso',() => {
-        cy.visit ('https://www.saucedemo.com/')
-        cy.get('[data-test="username"]').type('standard_user')
-        cy.get('[data-test="password"]').type('secret_sauce')
-        cy.get('[data-test="login-button"]').click ()
+        cy.visit ('http://lojaebac.ebaconline.art.br/minha-conta/')
+        cy.get('[name="username"]').type('filipecalmeida11@gmail.com')
+        cy.get('.woocommerce-form > :nth-child(2) > [name="password"]').type('igorfilipe1')
+        cy.get('[name="login"]').click ()
         
-        cy.get('[data-test="title"]').should('contain','Products')
-    
-       
-        it('deve exibir uma mensagem de erro ao inserir o usuario invalido', () => {
-            
-        cy.visit ('https://www.saucedemo.com/')
-        cy.get('[name="Acesso[email]"]').type('filipe@gmail.com')
-        cy.get('[name="Acesso[senha]"]').type('secret_sauce')
-        cy.get('.btn').click()
-        });
-        
+        cy.get('.woocommerce-MyAccount-content > :nth-child(2)').should('contain','Olá, Igor Filipe (não é Igor Filipe? Sair)')
+              
     })
+
+    it('Deve exibir mensagem de erro ao inserir usuario invalido', () => {
+        cy.visit ('http://lojaebac.ebaconline.art.br/minha-conta/')
+        cy.get('[name="username"]').type('filipe@gmail.com')
+        cy.get('.woocommerce-form > :nth-child(2) > [name="password"]').type('igorfilipe1')
+        cy.get('[name="login"]').click ()
+        cy.get('.woocommerce-error').should('contain', 'Endereço de e-mail desconhecido.')
+               
+    });
+
+    it('Deve exibir mensagem de erro ao inserir uma senha invalida', () => {
+        cy.visit ('http://lojaebac.ebaconline.art.br/minha-conta/')
+        cy.get('[name="username"]').type('filipecalmeida11@gmail.com')
+        cy.get('.woocommerce-form > :nth-child(2) > [name="password"]').type('igor1')
+        cy.get('[name="login"]').click ()
+        cy.get('.woocommerce-error').should('contain', 'Erro: A senha fornecida para o e-mail filipecalmeida11@gmail.com está incorreta.')
+    
+    });
 })
