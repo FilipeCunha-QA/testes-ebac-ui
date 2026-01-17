@@ -1,12 +1,14 @@
 /// <reference types="cypress"/>
+import user from "../fixtures/usuario.json"
+
 
 describe ('Funcionalidade: login', () =>{
    beforeEach(() => {
     cy.visit ('http://lojaebac.ebaconline.art.br/minha-conta/')
    });
 
-   afterEach(() => {
-    cy.screenshot()
+afterEach(() => {
+cy.screenshot()
    });
     it('Deve fazer login com sucesso',() => {
         cy.visit ('http://lojaebac.ebaconline.art.br/minha-conta/')
@@ -35,4 +37,15 @@ describe ('Funcionalidade: login', () =>{
         cy.get('.woocommerce-error').should('contain', 'Erro: A senha fornecida para o e-mail filipecalmeida11@gmail.com está incorreta.')
     
     });
+
+    it('Deve fazer login com sucesso - Ulizando comando customizado', () => {
+        cy.login('filipecalmeida11@gmail.com', 'igorfilipe1')
+
+    });
+
+    it('Deve fazer login usando importação da massa de dados', () => {
+        cy.login(user.email, user.password)
+    });
+
+
 })

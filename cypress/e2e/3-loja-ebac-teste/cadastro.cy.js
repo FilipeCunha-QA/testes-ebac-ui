@@ -35,4 +35,14 @@ describe('Funcionalidade Cadastro', () => {
        cy.get('[name="save_account_details"]').click()
        cy.get('.woocommerce-message').should('exist')
     });
+
+it.only('Deve preencher cadastro com sucesso usando comando customizado', () => {
+   cy.preencherCadastro(
+      faker
+   )
+   cy.get('.woocommerce-message').should('exist')
+
+});
+
+
 });
