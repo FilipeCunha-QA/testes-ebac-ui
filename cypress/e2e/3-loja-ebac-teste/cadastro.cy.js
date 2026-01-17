@@ -1,10 +1,11 @@
 /// <reference types="cypress" />
 import { faker } from '@faker-js/faker';
+import cadastroPage from './support/pages/cadastro-page';
 
 describe('Funcionalidade Cadastro', () => {
    
    beforeEach(() => {
-    cy.visit ('http://lojaebac.ebaconline.art.br/minha-conta/')
+      cadastroPage.visitarPaginaCadastro()
    });
 
     it('Deve completar o cadastro com sucesso', () => {
@@ -36,13 +37,23 @@ describe('Funcionalidade Cadastro', () => {
        cy.get('.woocommerce-message').should('exist')
     });
 
-it.only('Deve preencher cadastro com sucesso usando comando customizado', () => {
-   cy.preencherCadastro(
-      faker
-   )
+it('Deve preencher cadastro com sucesso usando comando customizado', () => {
+  
+   cy.preencherCadastro(faker)
    cy.get('.woocommerce-message').should('exist')
 
 });
 
+it('Deve fazer cadastro com sucesso usando Page Objects', () => {
+   cadastroPage.preencherCadastro('filipe009@gmail.com', 'filipe123', 'filipe', 'Almeida')
+   cy.get('.woocommerce-MyAccount-content > :nth-child(2)').should('contain', 'Olá, filipe')
+});
 
+it.only('Deve validar mensagem ao tentar cadastrar sem preencher nome', () => {
+   cadastroPage.preencherCadastro('filipe81810013@gmail.com', 'kk1234', 'Igor', '')
+   cy.get('.woocommerce-error').should('contain', 'Sobrenome é um campo obrigatório.')
+
+
+
+});
 });
