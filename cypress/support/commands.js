@@ -30,7 +30,7 @@ Cypress.Commands.add('login', (email, password) => {
     cy.get('[name="username"]').type(email, {log:false})
     cy.get('.woocommerce-form > :nth-child(2) > [name="password"]').type(password, {log:false})
     cy.get('[name="login"]').click ()
-    cy.get('.woocommerce-MyAccount-content > :nth-child(2)').should('contain','Olá, Igor Filipe (não é Igor Filipe? Sair)')
+    cy.get('.woocommerce-MyAccount-content > :nth-child(2)').should('contain','Olá, filipecalmeida11 (não é filipecalmeida11? Sair)')
 })
 
 
