@@ -45,12 +45,12 @@ it('Deve preencher cadastro com sucesso usando comando customizado', () => {
 });
 
 it('Deve fazer cadastro com sucesso usando Page Objects', () => {
-   cadastroPage.preencherCadastro('filipe113191@gmail.com', 'filipe123', 'filipe', 'Almeida')
+   cadastroPage.preencherCadastro('filipe555@gmail.com', 'filipe123', 'filipe', 'Almeida')
    cy.get('.woocommerce-MyAccount-content > :nth-child(2)').should('contain', 'Olá, filipe')
 });
 
 it('Deve validar mensagem ao tentar cadastrar sem preencher nome', () => {
-   cadastroPage.preencherCadastro('filipe810013@gmail.com', 'kk1234', 'Igor', '')
+   cadastroPage.preencherCadastro('filipi112@gmail.com', 'kk1234', 'Igor', '')
    cy.get('.woocommerce-error').should('contain', 'Sobrenome é um campo obrigatório.')
 
 
